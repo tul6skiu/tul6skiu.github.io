@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Машинка</title>
+		<style>
+			#content{
+				background:url(images.png)no-repeat ;
+				background-size: 100%;
+				width:800px;
+				height:309px;
+				position:relative;
+				border-bottom:4px solid gray;
+				margin:0 auto;
+			}
+			
+			#getCar{float:right; border: 1px solid blue; padding:15px;}
+			#sedan{position: absolute; width:242px;bottom: -36px;}
+			
+
+		
+			
+			.mirror{
+				transform: scale(-1, 1); /*отражаем машинку по горизонтали*/
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id="content">
+			
+			<img id="sedan"  src="sedan.png">
+			
+			
+			<p id="getCar" onclick="soundClick()">Дамир в JB</p>
+			
+		
+			
+		</div>
+		<script type="text/javascript" src="main2.js"></script>
+		<audio src="sound.mp3" autoplay="autoplay"></audio>
+		
+		
+	
+	</body>
+</html>
