@@ -1,0 +1,41 @@
+*{
+	font-size:20px;
+	font-weight:700
+}
+
+.container{
+	width:600px;
+	margin:0 auto;
+}
+
+.table{
+	background:#0078D7;
+	padding:15px
+}
+
+button{
+	padding:10px 15px;
+	width:65px;
+	height:45px;
+	background:#fff;
+	border: 2px solid #fff;
+}
+
+button:hover{
+	border:2px solid blue;
+	cursor:pointer;
+}
+
+input{
+	height:45px;
+	width:100%;
+}
+
+.title{
+	color:#fff;
+	text-shadow:1px 1px 0 #000;
+	font-family:Verdana;
+	text-align:center;
+	width:100%;
+	display:block
+}
