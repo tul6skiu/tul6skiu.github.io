@@ -10,7 +10,7 @@
            <?php
             $navMenu = [
               "Главная" => "http://lesson1.Batula/" ,
-              "Отзывы" => "http://lesson1.Batula/coment.php/" ,
+              "Отзывы" => "http://lesson1.Batula/" ,
               "О нас" => "http://lesson1.Batula/" ,
               "Услуги" => "http://lesson1.Batula/" ,
               "Контакты" => "http://lesson1.Batula/" ,
