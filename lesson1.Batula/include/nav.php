@@ -1,4 +1,4 @@
- 
+<!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">Какой-то логотип</a>
@@ -7,23 +7,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Главная
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Статьи</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">ТТТ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">PRER</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Контакты</a>
-            </li>
+           <?php
+            $navMenu = [
+              "Главная" => "http://lesson1.Batula/" ,
+              "Отзывы" => "http://lesson1.Batula/" ,
+              "О нас" => "http://lesson1.Batula/" ,
+              "Услуги" => "http://lesson1.Batula/" ,
+              "Контакты" => "http://lesson1.Batula/" ,
+            ];
+            foreach ($navMenu as $key => $value){
+              echo '<li class="nav-item"><a class="nav-link" href="' . $value . '">' . $key . '</a></li>';
+    }
+    ?>
           </ul>
         </div>
       </div>
