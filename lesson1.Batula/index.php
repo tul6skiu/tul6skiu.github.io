@@ -28,9 +28,6 @@
    include 'include/nav.php';
  
   ?>
- <?php 
-    include 'include/coment.php';	  
-  ?>
 
 	  
    <?php
