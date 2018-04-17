@@ -20,20 +20,18 @@
 
   <body>
   
- 
-
-
   <?php 
 
    include 'include/nav.php';
  
   ?>
 
+   
 	  
-   <?php
+   <!--?php
     include 'include/content.php';
 
-   ?>
+   ?-->
 
    
    <?php
@@ -41,7 +39,8 @@
     include 'include/right.php';
 
    ?>
-        <!-- Sidebar -->
+   
+    <!-- Sidebar -->
   <?php
    
     include 'include/footer.php';

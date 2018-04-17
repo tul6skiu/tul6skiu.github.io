@@ -1,12 +1,10 @@
 <?php
   if(isset($_POST["done"])){
-
     if($_POST["name"] == "")
         echo "Введите имя <a href='/'>Исправить</a>";
     else
         header("Localition:index.php");
   }
-
 ?>
 <?php
 $handle = fopen("index.php", "a+");
@@ -31,6 +29,7 @@ $handle = fopen("index.php", "a+");
     <title>Hello, world!</title>
   </head>
   <body>
+   
       <div class="container">
    <form  action="" method="post">
        <label>Имя:</label><br/>

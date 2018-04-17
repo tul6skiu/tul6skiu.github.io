@@ -8,22 +8,31 @@
      
 
           ?>
-          <?php
+           
 
-          
-           global $link;
+<!DOCTYPE html>
+<html lang="en">
 
-          $result = mysqli_query($link,"SELECT id,title,images,content,category_id FROM posts WHERE id ");
-        
+ <head>
 
-          while($post = mysqli_fetch_assoc($result))
-          {?>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-         
-      <?php   }?>
+    <title>Blog</title>
 
-          
+    
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+ 
+    <link href="css/main.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+  щ
+ 
      <div class="container">
       <div class="row">
     
@@ -42,16 +51,21 @@
               if($chasov >= 22 or $chasov < 04) {$hello = $night;}
               echo "Время: $chasov:$minyt, $hello";
             ?>
-            <h1>Все новости:</h1>
+           
+            <h1><?=get_category_title($_GET['id'])?>:</h1>
           </div>
-          <?php
-            $post=get_posts();
-          ?>
-        <?php foreach ($post as $post): ?>
+           <?php
+              $category_id = $_GET['id'];
+              $posts = get_posts_by_category($category_id);
+             
+              ?>
+          
+        <?php foreach ($posts as $post): ?>
+       
           
             <hr>
           
-               
+  
         <div class="row">
             <div class="col-md-5">
               <a href="#" class="thumbnail">
@@ -67,16 +81,14 @@
               <br/>
               <ul class="list-inline">
                 <div class="row">
-                  <li><i class="glyphicon glyphicon-list"></i><a href="#">Название категории</a> | </li>
-                  <li><i class="glyphicon glyphicon-calendar"></i> 7 марта 2018 21:00<i>|</i></li>
-                  
-                
+                  <li><i class="glyphicon glyphicon-list"></i><a href="#"><?=$post['title']?></a> | </li>
+                  <li><i class="glyphicon glyphicon-calendar"></i> 7 марта 2018 21:00<i> | </i></li>
+               
                 </div>
               </ul>
             </div>
         </div>
       <hr>
-
       <?php endforeach;?>
           
       </div>
@@ -91,11 +103,9 @@
                <?php  if(count($categories) === 0): ?>
                 <li><a href="#">Добавить категории</a></li>
               <?php else: ?>
-               <?php foreach ($categories as  $category): ?>
+                <?php foreach ($categories as  $category): ?>
                   
              <li><a href="/category.php?id=<?=$category["id"]?>"><?=$category["title"]?></a></li>
-
-
                  
                 <?php endforeach;?>
                
@@ -106,6 +116,21 @@
 </div>
 
 
-  
 
+    <!-- Sidebar -->
+  <?php
    
+    include 'include/footer.php';
+
+   ?>  
+
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
