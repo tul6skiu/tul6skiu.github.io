@@ -3,48 +3,84 @@
 //стартуем сессию
 session_start();
 
+include 'db.php';
+
 //подлючаем библиотеку
 require_once './vendor/autoload.php';
+
+define('CLIENT_SECRET_PATH', 'client_secrets.json');
+     
+     global $link;
+    $sql = mysqli_query($link,"SELECT `client_id`,`refreh_token`,`token_type` FROM `key_id`");
+    $result = mysqli_fetch_array($sql);
+        /*var_dump ($result);*/
+   $at= '{"access_token":"' . $result['client_id'] . '",' .
+      '"token_type":"Bearer",' .
+      '"expires_in":3600,' .
+      '"refresh_token":"' . $result['refreh_token'] . '",'.
+      '"created":' . time() . '}';
 
 //создаем несколько переменных с параметрами из консоли гугл
 $client_id = '873089922969-ec3v84q2jd3iktcc4mt1drsbuk24su4d.apps.googleusercontent.com';
 $client_secret = 'AALw7koJhfrVnRCgmqiHvk9b';
 $redirect_uri = 'http://localhost/index.php';
 $api_key = 'AIzaSyD4jlIWjVB9tBZn4V32zfR2U1uo-A9QsIk';
-
 //создаем клиент
- $client = new Google_Client();
-    $client->setApplicationName("Google Calendar API"); //название приложения
-    $client->setRedirectUri($redirect_uri);
-    $client->setClientId($client_id);
-    $client->setClientSecret($client_secret);
-    $client->setDeveloperKey($api_key);
-    //необходимо для получение рефрештокена
-    $client->setAccessType('offline');
+   
+$client = new Google_Client();
+$client->setAuthConfigFile(CLIENT_SECRET_PATH);
+$client->setAuthConfig('client_secrets.json');
+$client->setAccessType("offline");        // offline access
+$client->setIncludeGrantedScopes(true);   // incremental auth
+ $client->addScope("https://www.googleapis.com/auth/calendar");
+$redirect_uri = 'http://localhost/index.php';
+
+//необходимые разрешения, весь список на https://developers.google.com/identity/protocols/googlescopes
     $client->setApprovalPrompt('force');
 
 
-
-
-//необходимые разрешения, весь список на https://developers.google.com/identity/protocols/googlescopes
-
-
-    $client->addScope("https://www.googleapis.com/auth/calendar");
-  
-
-
 //если был передан параметр CODE, значит скрипт запустил ГУГЛ, чтобы передать авторизаци
+ if((isset($_GET['action'])) && ($_GET['action'] == 'logout')) {
+	//пользователь нажал выход, отзываем токен
+    if (isset($token['refresh_token'])) {
 
-     if (!isset($_GET['code'])) {
-  $auth_url = $client->createAuthUrl();
-  header('Location: ' . $auth_url);
-} else{
-    $client->authenticate($_GET['code']);
-	//сохраняем сессию
-	$_SESSION['access_token'] = $client->getAccessToken();
+      $tokenString = $token['refresh_token'];
+    } else {
+      $tokenString = $token['access_token'];
+       
+    }
+	//сбрасываем сессию
+	unset($_SESSION['access_token']);
+	//перезагружаем страницу
+	header('Location: ' . $redirect_uri);
 }
 
-	//Если User нажал кнопку забронировать,то запускаем код бронирования
+if (isset($_GET['code'])) {
+	
+	$client->authenticate($_GET['code']);  
+	$_SESSION['access_token'] = $client->getAccessToken();
+	
+	header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+    }
+
+  if (!isset($_SESSION['access_token'])) {
+
+	$authUrl = $client->createAuthUrl();
+     header('Location: '.$authUrl);
+	print "Connect Me!Подключи меня";
+    }
+
+           
+  
+if (isset($_SESSION['access_token'])) {
+	$client->setAccessToken($_SESSION['access_token']);
+	print "LogOut Eсть доступ";
+   
+    
+    
+    
+     
+    	//Если User нажал кнопку забронировать,то запускаем код бронирования
 if(isset($_POST['addEventSubmit'])){
     
    
@@ -57,7 +93,6 @@ if(isset($_POST['addEventSubmit'])){
      $inputSlug = $_POST['inputSlug'];
     
     
-
   
     //время
     $tz = (new \DateTime())->getTimezone()->getName();
@@ -67,10 +102,8 @@ if(isset($_POST['addEventSubmit'])){
             //время окончания бронирования
             $endDate = new \DateTime($inputDate . 'T' . $endTime, new \DateTimeZone($tz));
             $endTime = $endDate->format(DATE_ATOM);
+
     
-if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-   //передадим токин из сессии в клиент
-	$client->setAccessToken($_SESSION['access_token']);
     //Создаем id календаря
   $calendarId = 'tulaa478@gmail.com';
     
@@ -97,10 +130,12 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 }
 
 
+
+
+    
+
   
    
-
-
 ?>
 
  
@@ -195,3 +230,4 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 	//перезагружаем страницу
 	header('Location: ' . $redirect_uri);
 }*/-->
+
