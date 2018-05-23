@@ -10,71 +10,63 @@ require_once './vendor/autoload.php';
 
 define('CLIENT_SECRET_PATH', 'client_secrets.json');
      
-     global $link;
-    $sql = mysqli_query($link,"SELECT `client_id`,`refreh_token`,`token_type` FROM `key_id`");
-    $result = mysqli_fetch_array($sql);
-        /*var_dump ($result);*/
-   $at= '{"access_token":"' . $result['client_id'] . '",' .
-      '"token_type":"Bearer",' .
-      '"expires_in":3600,' .
-      '"refresh_token":"' . $result['refreh_token'] . '",'.
-      '"created":' . time() . '}';
+     
 
 //создаем несколько переменных с параметрами из консоли гугл
 $client_id = '873089922969-ec3v84q2jd3iktcc4mt1drsbuk24su4d.apps.googleusercontent.com';
 $client_secret = 'AALw7koJhfrVnRCgmqiHvk9b';
-$redirect_uri = 'http://localhost/index.php';
 $api_key = 'AIzaSyD4jlIWjVB9tBZn4V32zfR2U1uo-A9QsIk';
 //создаем клиент
    
 $client = new Google_Client();
 $client->setAuthConfigFile(CLIENT_SECRET_PATH);
-$client->setAuthConfig('client_secrets.json');
 $client->setAccessType("offline");        // offline access
 $client->setIncludeGrantedScopes(true);   // incremental auth
- $client->addScope("https://www.googleapis.com/auth/calendar");
-$redirect_uri = 'http://localhost/index.php';
-
-//необходимые разрешения, весь список на https://developers.google.com/identity/protocols/googlescopes
-    $client->setApprovalPrompt('force');
+$client->addScope("https://www.googleapis.com/auth/calendar");
+$redirect_uris = 'http://o96005nb.beget.tech/index.php';
+$client->setApprovalPrompt('force');
 
 
+ 
 //если был передан параметр CODE, значит скрипт запустил ГУГЛ, чтобы передать авторизаци
- if((isset($_GET['action'])) && ($_GET['action'] == 'logout')) {
-	//пользователь нажал выход, отзываем токен
-    if (isset($token['refresh_token'])) {
+if((isset($_GET['action'])) && ($_GET['action'] == 'logout')) {
+    //пользователь нажал выход, отзываем токен
+      if (isset($token['refresh_token'])) {
 
-      $tokenString = $token['refresh_token'];
-    } else {
-      $tokenString = $token['access_token'];
-       
-    }
-	//сбрасываем сессию
-	unset($_SESSION['access_token']);
-	//перезагружаем страницу
-	header('Location: ' . $redirect_uri);
+          $tokenString = $token['refresh_token'];
+       } 
+         else 
+           {
+
+               $tokenString = $token['access_token'];
+
+           }
+              //сбрасываем сессию
+               unset($_SESSION['access_token']);
+              //перезагружаем страницу 
+                header('Location: ' . $redirect_uri);
 }
 
 if (isset($_GET['code'])) {
 	
-	$client->authenticate($_GET['code']);  
-	$_SESSION['access_token'] = $client->getAccessToken();
+   $client->authenticate($_GET['code']);  
+    $_SESSION['access_token'] = $client->getAccessToken();
 	
-	header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-    }
+      header('Location: ' . filter_var($redirect_uris, FILTER_SANITIZE_URL));
+}
 
-  if (!isset($_SESSION['access_token'])) {
+    if (!isset($_SESSION['access_token'])) {
 
-	$authUrl = $client->createAuthUrl();
-     header('Location: '.$authUrl);
-	print "Connect Me!Подключи меня";
-    }
+     	  $authUrl = $client->createAuthUrl();
+          header('Location: '.$authUrl);
+	      print "Connect Me!Подключи меня";
+}
 
            
   
 if (isset($_SESSION['access_token'])) {
 	$client->setAccessToken($_SESSION['access_token']);
-	print "LogOut Eсть доступ";
+	/*print "LogOut Eсть доступ";*/
    
     
     
@@ -154,15 +146,12 @@ if(isset($_POST['addEventSubmit'])){
   </head>
   <body>
    
-    <div class="container">
-        <div class="row">
-           <div class="col-md-12">
-               <img src="img/man.jpg" alt="">
-           </div>
-            
-        </div>
-    
-  <div class="container">
+      <header>
+          <div class="fonsite" style="width:100%;height:auto;">
+              <img src="img/2.jpg" alt="" style="width:100%;height:550px;">
+          </div>
+      </header>
+  <div class="container" >
       <div class="row">
          <div class="col-md-9"> <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=tulaa478%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FMoscow" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe></div>
          <div class="col-md-3">
@@ -204,8 +193,9 @@ if(isset($_POST['addEventSubmit'])){
          
       </div>
   </div>
-        </div>
-      </div>
+     </div>
+      
+      
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
