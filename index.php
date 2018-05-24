@@ -6,6 +6,8 @@ session_start();
 include 'db.php';
 
 //подлючаем библиотеку
+include 'indexZist.php';
+
 require_once './vendor/autoload.php';
 
 define('CLIENT_SECRET_PATH', 'client_secrets.json');
@@ -23,49 +25,36 @@ $client->setAuthConfigFile(CLIENT_SECRET_PATH);
 $client->setAccessType("offline");        // offline access
 $client->setIncludeGrantedScopes(true);   // incremental auth
 $client->addScope("https://www.googleapis.com/auth/calendar");
-$redirect_uris = 'http://o96005nb.beget.tech/index.php';
+/*$redirect_uris = 'http://o96005nb.beget.tech/index.php';*/
+$redirect_uris = 'http://localhost/index.php';
 $client->setApprovalPrompt('force');
 
-
+$id_key = $array;
+	
  
 //если был передан параметр CODE, значит скрипт запустил ГУГЛ, чтобы передать авторизаци
-if((isset($_GET['action'])) && ($_GET['action'] == 'logout')) {
-    //пользователь нажал выход, отзываем токен
-      if (isset($token['refresh_token'])) {
 
-          $tokenString = $token['refresh_token'];
-       } 
-         else 
-           {
-
-               $tokenString = $token['access_token'];
-
-           }
-              //сбрасываем сессию
-               unset($_SESSION['access_token']);
-              //перезагружаем страницу 
-                header('Location: ' . $redirect_uri);
-}
-
-if (isset($_GET['code'])) {
+/*if (isset($_GET['code'])) {
 	
    $client->authenticate($_GET['code']);  
-    $_SESSION['access_token'] = $client->getAccessToken();
+    $id_key = $array;
 	
       header('Location: ' . filter_var($redirect_uris, FILTER_SANITIZE_URL));
 }
 
-    if (!isset($_SESSION['access_token'])) {
+    if (!isset($id_key)) {
 
      	  $authUrl = $client->createAuthUrl();
           header('Location: '.$authUrl);
 	      print "Connect Me!Подключи меня";
-}
+}*/
 
-           
+          
+      
   
-if (isset($_SESSION['access_token'])) {
-	$client->setAccessToken($_SESSION['access_token']);
+if (isset($id_key)) {
+	$client->setAccessToken($id_key);
+    
 	/*print "LogOut Eсть доступ";*/
    
     
