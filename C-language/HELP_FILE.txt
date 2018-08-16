@@ -1,0 +1,10 @@
+компилторы
+https://www.onlinegdb.com/online_c_compiler
+
+ресурсы для поиска
+https://stepik.org/lesson/65373/step/14?unit=42143
+http://youngcoder.ru/lessons/10/argumenty_funkcii.php
+https://prog-cpp.ru/c/
+http://www.mir-koda.ru/zadachi.php-задачи и примеры
+http://cppstudio.com/cat/285/289//-задачи и примеры
+http://taskcode.ru/matrix-задачи и примеры
