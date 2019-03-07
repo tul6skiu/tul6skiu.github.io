@@ -72,6 +72,7 @@ body {
 @media (max-width: 767px) {
   .card.is-opened {
     -webkit-transform: rotate(0deg) translate(115px, 0);
+    font-size: 20px;
     transform: rotate(0deg) translate(115px, 0);
   }
 }
@@ -124,20 +125,7 @@ body {
   width: 350px;
   height: 500px;
 }
-@media (min-width: 479px)
-{
-  .card-page1
-  {
-    font-size: 14px;
-  }
-}
-@media (min-width: 375px)
-{
-  .card-page1
-  {
-    font-size: 12px;
-  }
-}
+
 @media (max-width: 767px) {
   .card, .card-page {
     width: 230px;
@@ -225,12 +213,6 @@ body {
   font-size: 20px;
   color: #D50000;
 }
-@media (max-width: 767px) {
-  .cart-page-inside,
-  .cart-page-bottom {
-    border: 10px solid #d4d1d0;
-  }
-}
 
 .cart-page-inside {
   -webkit-transform: rotateY(-180deg);
@@ -238,18 +220,25 @@ body {
   border-right: none !important;
   background-position: 0px 80px;
 }
-
-@media (max-width: 767px) {
-  .cart-page-inside {
-    background-position: 0px 30px;
+/*@media (max-width: 400px)
+{
+  .card-page1
+  {
+    font-size: 10px;
+  }
+}*/
+@media (max-width: 400px)
+{
+  .card-page1
+  {
+    font-size: 12px;
+  }
+  .card-page2
+  {
+    font-size: 12px;
   }
 }
 
-@media (max-width: 479px) {
-  .cart-page-inside {
-    background-position: 0px 30px;
-  }
-}
 
 .cart-page-bottom {
   z-index: 1;
@@ -257,17 +246,17 @@ body {
   background-position: -22px 80px;
 }
 
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
   .cart-page-bottom {
     background-position: 85px 30px;
   }
-}
+}*/
 
-@media (max-width: 479px) {
+/*@media (max-width: 479px) {
   .cart-page-bottom {
     background-position: 0px 30px;
   }
-}
+}*/
 
 .merry-christmas {
   -webkit-transform: rotate(-20deg);
@@ -287,7 +276,7 @@ body {
 
 @media (max-width: 479px) {
   .merry-christmas img {
-    width: 140px;
+    width: 100px;
   }
 }
 
@@ -360,12 +349,13 @@ p {
     font-size: 16px;
   }
   p {
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 
-@media (max-width: 479px) {
+@media (max-width: 400px) {
   .card-page__text{
     display: none;
+    font-size: 12px;
   }
 }
