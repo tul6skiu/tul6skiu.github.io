@@ -131,6 +131,13 @@ body {
     font-size: 14px;
   }
 }
+@media (min-width: 375px)
+{
+  .card-page1
+  {
+    font-size: 12px;
+  }
+}
 @media (max-width: 767px) {
   .card, .card-page {
     width: 230px;
