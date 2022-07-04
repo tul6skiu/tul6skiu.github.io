@@ -267,6 +267,11 @@ body {
   height: auto;
 }
 
+.merry-christmas2 img {
+  width: 300px;
+  height: auto;
+}
+
 @media (max-width: 767px) {
   .merry-christmas img {
     width: 200px;
@@ -275,6 +280,18 @@ body {
 
 @media (max-width: 479px) {
   .merry-christmas img {
+    width: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .merry-christmas2 img {
+    width: 200px;
+  }
+}
+
+@media (max-width: 479px) {
+  .merry-christmas2 img {
     width: 100px;
   }
 }
