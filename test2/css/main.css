@@ -260,13 +260,10 @@ body {
   }
 }*/
 
-.merry-christmas {
-  -webkit-transform: rotate(-20deg);
-  transform: rotate(-20deg);
-}
+
 
 .merry-christmas img {
-  width: 330px;
+  width: 300px;
   height: auto;
 }
 
